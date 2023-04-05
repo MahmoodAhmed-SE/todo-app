@@ -14,6 +14,7 @@ class TodoApp extends StatelessWidget {
     return const MaterialApp(
       title: "todo app",
       home: HomepageScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 } 
