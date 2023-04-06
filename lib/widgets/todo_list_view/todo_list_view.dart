@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/models/todo_model.dart';
+import 'package:todo_app/widgets/todo_list_view/settings_button.dart';
+import 'package:todo_app/widgets/todo_list_view/todo_text.dart';
+
+import 'check_button.dart';
 
 class TodoListView extends StatefulWidget {
   final List<TodoModel> todoList;
@@ -21,14 +25,15 @@ class _TodoListViewState extends State<TodoListView> {
   Widget build(BuildContext context) {
     bool isEditModeOpen = false;
 
-    void setEditMode(bool boolValue) {
+    void editTodoText(TodoModel todo, String editedText) {
       setState(() {
-        isEditModeOpen = boolValue;
-        print("$isEditModeOpen 1");
+        widget.todoList[widget.todoList.indexOf(todo)] =
+            TodoModel(todoText: editedText);
       });
     }
 
-    return SizedBox(
+    return Container(
+      color: Colors.black12,
       height: 300,
       child: ListView.builder(
         itemCount: widget.todoList.length,
@@ -44,49 +49,16 @@ class _TodoListViewState extends State<TodoListView> {
                   child: Row(
                     children: [
                       Expanded(
-                        child: Material(
-                            type: MaterialType.transparency,
-                            child: InkWell(
-                              onDoubleTap: () {
-                                setEditMode(true);
-                              },
-
-                              /* 
-                                TO-DO: debug the child.. 
-                                -- doesn't rebuild with the new value of [isEditModeMode]
-                              */
-                              child: !isEditModeOpen
-                                  ? Text(widget.todoList[index].todoText)
-                                  : const Text("Editing mode"),
-                            )),
-                      ),
-                      SizedBox(
-                        width: 40,
-                        height: 40,
-                        child: Material(
-                          type: MaterialType.transparency,
-                          child: InkWell(
-                            borderRadius: BorderRadius.circular(10),
-                            onTap: () {
-                              // TO-DO: check todo
-                              widget.checkTodo(widget.todoList[index]);
-                            },
-                            child: const Icon(Icons.check_rounded),
-                          ),
+                        child: TodoText(
+                          todo: widget.todoList[index],
+                          editTodoText: editTodoText,
                         ),
                       ),
-                      SizedBox(
-                        width: 40,
-                        height: 40,
-                        child: Material(
-                          type: MaterialType.transparency,
-                          child: InkWell(
-                            borderRadius: BorderRadius.circular(10),
-                            // TO-DO: drop down menu
-                            child: const Icon(Icons.settings),
-                          ),
-                        ),
+                      CheckButton(
+                        todo: widget.todoList[index],
+                        checkTodo: widget.checkTodo,
                       ),
+                      const SettingsButton(),
                     ],
                   ),
                 );
