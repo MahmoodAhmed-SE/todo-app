@@ -26,9 +26,15 @@ class _HomepageScreenState extends State<HomepageScreen> {
     });
   }
 
-  void addTodo (String todoText) {
+  void addTodo(String todoText) {
     setState(() {
       _todoList.add(TodoModel(todoText: todoText));
+    });
+  }
+
+  void editTodo({required TodoModel todo, required String editedText}) {
+    setState(() {
+      _todoList[_todoList.indexOf(todo)] = TodoModel(todoText: editedText, isChecked: todo.isChecked);
     });
   }
 
@@ -49,6 +55,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
               TodoListView(
                 todoList: _todoList,
                 checkTodo: checkTodo,
+                editTodo: editTodo,
               ),
             ],
           ),
