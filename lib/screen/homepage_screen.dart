@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:todo_app/models/todo_model.dart';
 import 'package:todo_app/widgets/todo_list_view/todo_list_view.dart';
 
+import '../widgets/todo_list_item_adder/todo_list_item_adder.dart';
+
 class HomepageScreen extends StatefulWidget {
   const HomepageScreen({super.key});
 
@@ -21,7 +23,12 @@ class _HomepageScreenState extends State<HomepageScreen> {
     setState(() {
       _todoList[_todoList.indexOf(todo)] = TodoModel(todoText: todo.todoText, isChecked: true);
       _removedItemsList.add(todo);
-      print(_removedItemsList);
+    });
+  }
+
+  void addTodo (String todoText) {
+    setState(() {
+      _todoList.add(TodoModel(todoText: todoText));
     });
   }
 
@@ -36,9 +43,14 @@ class _HomepageScreenState extends State<HomepageScreen> {
           height: MediaQuery.of(context).size.height * 0.9,
           padding: const EdgeInsets.all(10),
           color: const Color(0XFFf2f2f2),
-          child: TodoListView(
-            todoList: _todoList,
-            checkTodo: checkTodo,
+          child: Column(
+            children: [
+              TodoListItemAdder(addTodo: addTodo),
+              TodoListView(
+                todoList: _todoList,
+                checkTodo: checkTodo,
+              ),
+            ],
           ),
         ),
       )),

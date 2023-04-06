@@ -10,6 +10,7 @@ class TodoListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      height: 300,
       child: ListView.builder(
         itemCount: todoList.length,
         itemBuilder: (context, index) {
@@ -17,6 +18,7 @@ class TodoListView extends StatelessWidget {
               ? null
               : Container(
                   height: 60,
+                  width: 300,
                   margin: const EdgeInsets.symmetric(vertical: 10),
                   padding: const EdgeInsets.all(10),
                   // color: const Color(0XFF333333),
