@@ -13,12 +13,11 @@ class HomepageScreen extends StatefulWidget {
 
 class _HomepageScreenState extends State<HomepageScreen> {
   final List<TodoModel> _todoList = [
-    TodoModel(todoText: "Cooking", time: TimeOfDay.now()),
-    TodoModel(todoText: "Studying", time: TimeOfDay.now()),
-    TodoModel(todoText: "Sleeping", time: TimeOfDay.now()),
+    TodoModel(todoText: "Cooking", time: DateTime.now()),
+    TodoModel(todoText: "Studying", time: DateTime.now()),
+    TodoModel(todoText: "Sleeping", time: DateTime.now()),
   ];
   final List<TodoModel> _removedItemsList = [];
-
   void checkTodo(TodoModel todo) {
     setState(() {
       _todoList[_todoList.indexOf(todo)] =
@@ -40,10 +39,10 @@ class _HomepageScreenState extends State<HomepageScreen> {
     });
   }
 
-  void addTimeToTodo(TodoModel todo, TimeOfDay time) {}
 
   @override
   Widget build(BuildContext context) {
+  print(_todoList[_todoList.length - 1].time);
     return Scaffold(
       body: SafeArea(
           child: Center(
