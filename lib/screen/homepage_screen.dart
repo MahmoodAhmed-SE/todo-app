@@ -13,30 +13,34 @@ class HomepageScreen extends StatefulWidget {
 
 class _HomepageScreenState extends State<HomepageScreen> {
   final List<TodoModel> _todoList = [
-    TodoModel(todoText: "Cooking"),
-    TodoModel(todoText: "Studying"),
-    TodoModel(todoText: "Sleeping"),
+    TodoModel(todoText: "Cooking", time: TimeOfDay.now()),
+    TodoModel(todoText: "Studying", time: TimeOfDay.now()),
+    TodoModel(todoText: "Sleeping", time: TimeOfDay.now()),
   ];
   final List<TodoModel> _removedItemsList = [];
 
   void checkTodo(TodoModel todo) {
     setState(() {
-      _todoList[_todoList.indexOf(todo)] = TodoModel(todoText: todo.todoText, isChecked: true);
+      _todoList[_todoList.indexOf(todo)] =
+          TodoModel(todoText: todo.todoText, time: todo.time, isChecked: true);
       _removedItemsList.add(todo);
     });
   }
 
   void addTodo(String todoText) {
     setState(() {
-      _todoList.add(TodoModel(todoText: todoText));
+      _todoList.add(TodoModel(todoText: todoText, time: TimeOfDay.now()));
     });
   }
 
   void editTodo({required TodoModel todo, required String editedText}) {
     setState(() {
-      _todoList[_todoList.indexOf(todo)] = TodoModel(todoText: editedText, isChecked: todo.isChecked);
+      _todoList[_todoList.indexOf(todo)] = TodoModel(
+          todoText: editedText, time: todo.time, isChecked: todo.isChecked);
     });
   }
+
+  void addTimeToTodo(TodoModel todo, TimeOfDay time) {}
 
   @override
   Widget build(BuildContext context) {

@@ -28,7 +28,7 @@ class _TodoListViewState extends State<TodoListView> {
     void editTodoText(TodoModel todo, String editedText) {
       setState(() {
         widget.todoList[widget.todoList.indexOf(todo)] =
-            TodoModel(todoText: editedText);
+            TodoModel(todoText: editedText, time: todo.time);
       });
     }
 
